@@ -1,0 +1,89 @@
+/* Google Font Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.home_container {
+  max-width: 850px;
+  width: 100%;
+  background: #fff;
+  padding: 40px 30px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.home_container .back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.home_container .back .text-1 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+}
+
+.home_container .back .input-boxes {
+  margin-top: 30px;
+}
+
+.home_container .back .input-box {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  margin: 10px 0;
+  position: relative;
+}
+
+.home_container .back .input-box input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 0 30px;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.home_container .back .input-box input:focus,
+.home_container .back .input-box input:valid {
+  border-color: #7d2ae8;
+}
+
+.home_container .back .button {
+  margin-top: 40px;
+}
+
+.home_container .back .button input {
+  color: #fff;
+  background: #7d2ae8;
+  border-radius: 6px;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.home_container .back .button input:hover {
+  background: #5b13b9;
+}
+
+.home_container .back label {
+  color: #5b13b9;
+  cursor: pointer;
+}
+
+.home_container .back label:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <title>Submit and Generate Script</title>
+    <style>
+      body {
+        background-color: #7d2ae8; /* Purple background color */
+        color: #ffffff; /* White text color */
+        font-family: Arial, sans-serif; /* Font family */
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .home_container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .form {
+        background-color:white; /* Semi-transparent white background */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Shadow effect */
+      }
+
+      .text-1 {
+        color: #7d2ae8;
+        text-align: center;
+      }
+
+      .input-boxes {
+        margin-bottom: 20px;
+      }
+
+      .input-boxes input {
+        width: 90%;
+        padding: 10px;
+        margin-bottom: 10px;
+        
+        border: none;
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white input background */
+        color: #000000; /* Black text color */
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1); /* Inset shadow effect */
+      }
+
+      .button input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background: #7d2ae8;
+        color: #ffffff; /* White text color */
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .button input[type="submit"]:hover {
+        background: #5b13b9;
+      }
+
+      .results {
+        width: 80%;
+        margin: 0 auto;
+        border: 2px white dotted;
+        margin-top: 20px;
+        text-align: center;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .utilities{
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+
+
+      .copy_button {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #ff8000; /* Orange button color */
+        color: #ffffff; /* White text color */
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .copy_button:hover {
+        background-color: #e67300; /* Darker orange on hover */
+      }
+
+      .script-text {
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="home_container">
+      <div class="form">
+        <h2 class="text-1">Submit and Generate Script</h2>
+        <form id="submitForm" action=""  onsubmit=submitForm(event)>
+          <div class="input-boxes">
+            <input type="text" id="url" name="url" placeholder="Enter URL" />
+            <input type="text" id="domain" name="domain" placeholder="Enter Domain Name" />
+          </div>
+          <div class="button">
+            <input type="submit" value="Submit" />
+          </div>
+        </form>
+      </div>
+      <div class="results">
+        <div class="utilities">
+            <p>Script will be there</p>
+            <button class="copy_button">Copy</button>
+        </div>
+        <p class="script-text"></p>
+      </div>
+    </div>
+
+    {% block javascript %}
+    <script>
+        function submitForm(event) {
+            event.preventDefault();
+            const url = document.getElementById("url").value;
+            const domain = document.getElementById("domain").value;
+            const user_data = JSON.parse('{{ user_data|tojson }}'); // Wrap in quotes
+
+            console.log(url, domain);
+
+            fetch("http://localhost:5000/submit_and_generateScript", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": user_data.token, // Include space after 'Bearer'
+                },
+                body: JSON.stringify({ url: url, domain_name: domain }),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                // Handle the response data here
+                console.log(data);
+                
+                const messageDiv = document.querySelector(".script-text");
+                const x=data.encryption_key;
+                const s=`<scrippt one="${data.encryption_key}"></scrippt>`;
+                messageDiv.innerText=s;
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+        }
+    </script>
+{% endblock %}
+
+  </body>
+</html>
