@@ -8,6 +8,7 @@ from flask_mongoengine import MongoEngine
 client = MongoClient('mongodb://localhost:27017/')
 db = client['ChatBots']
 users_collection = db['Users']
+users_sites_collection=db['users_sites']
 
 
 # Create Flask app instance

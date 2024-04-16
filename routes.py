@@ -10,6 +10,8 @@ import jwt
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
 from flask_cors import CORS
+from db import users_sites_collection
+
 
 
 
@@ -233,4 +235,18 @@ def Generate_Script(current_user):
             "error": str(e)
         }), 500
 
+
+@app.route("/view_history", methods=["GET"])
+
+def view_history():
+    user_id = "660c1120ae91c50c7707c661"  # Assuming the user ID is stored in the id attribute of the current_user object
+
+    # Retrieve all records for the current user from the user_sites collection
+    user_sites2 = users_sites_collection.find({"user_id": user_id})
+
+    # Convert MongoDB cursor to list of dictionaries
+    user_sites_list = list(user_sites2)
+
+    # Return the list of user sites as JSON
+    return jsonify({"user_sites": user_sites_list})
 

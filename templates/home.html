@@ -127,9 +127,9 @@
       <div class="results">
         <div class="utilities">
             <p>Script will be there</p>
-            <button class="copy_button">Copy</button>
+            <button class="copy_button" onclick=copy_text()>Copy</button>
         </div>
-        <p class="script-text"></p>
+        <textarea class="script-text" id="sc" disabled cols="10"></textarea>
       </div>
     </div>
 
@@ -165,6 +165,19 @@
                 console.error("Error:", error);
             });
         }
+        
+       
+        function copy_text()
+        {
+          const scriptText=document.querySelector('.script-text');
+          scriptText.select();
+          scriptText.setSelectionRange(0,99999);
+          navigator.clipboard.writeText(scriptText.value);
+          alert("Text Copied");
+          
+          
+        }
+    
     </script>
 {% endblock %}
 
